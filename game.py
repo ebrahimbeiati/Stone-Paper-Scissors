@@ -1,28 +1,33 @@
-import sys
 import random
 
-user_input = input("\nPlease enter a numbers: \n1 : Stone \n2 : Paper \n3 : Scissors\n\n")
+def decide_winner(player, computer):
+    print(f"User choice: {player}  Computer choice: {computer}")
 
-if user_input.isdigit():
+    if player == 1 and computer == 3:
+        return "You win"
+    elif player == 2 and computer == 1:
+       return "You win"
+    elif player == 3 and computer == 2:
+        return "You win"
+    elif player == computer:
+        return "Tie again"
+    else:
+        return "Computer win" 
+def play_game():
+    user_input = input("\nPlease enter a numbers: \n1 : Stone \n2 : Paper \n3 : Scissors\n\n")
+
+    if user_input.lower() == "quit":
+        return 
+    
+    if user_input not in ["1", "2", "3"]:
+        print("You must enter numbers between 1,2 or 3")
+        return play_game()
+    
     user_choice = int(user_input)
-    if(user_choice < 0 or user_choice > 3):
-        print("You must enter 1 or 2 or 3")
-        sys.exit()
-else:
-    print("Invalid input. Please enter a number.")
-    sys.exit()
-computer_value = int(random.choice("123"))
-computer_choice = input(computer_value)
-print(f"User choice: {user_input}  Computer choice: {computer_value}")
+    computer_choice = int(random.choice("123"))
 
+    game_result = decide_winner(user_choice, computer_choice)
+    print(game_result)
+    return play_game()
 
-if user_choice == 1 and computer_choice == 3:
-    print("You win")
-elif user_choice == 2 and computer_choice == 1:
-    print("You win")
-elif user_choice == 3 and computer_choice == 2:
-    print("You win")
-elif user_choice == computer_choice:
-        print("Tie again")
-else:
-        print("Computer win") 
+play_game()
